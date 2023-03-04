@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import { reqHandler, books, Payload } from '../model/books.js';
 
 const getBooks: reqHandler = (req, h) => {
-  const { name = '', reading = 2, finished = 2 } = req.query;
+  const { name = '', reading = '2', finished = '2' } = req.query;
 
   let filteredBooks = books;
 
@@ -10,24 +10,24 @@ const getBooks: reqHandler = (req, h) => {
     filteredBooks = filteredBooks.filter(book => book.name.toLowerCase().includes(name.toLowerCase()));
   }
 
-  if (reading == 1 || reading == 0) {
+  if (reading === '1' || reading === '0') {
     let isReading: boolean;
 
-    if (reading == 0) {
+    if (reading === '0') {
       isReading = false;
-    } else if (reading == 1) {
+    } else if (reading === '1') {
       isReading = true;
     }
 
     filteredBooks = filteredBooks.filter(book => book.reading === isReading);
   }
 
-  if (finished == 1 || finished == 0) {
+  if (finished === '1' || finished == '0') {
     let isFinished: boolean;
 
-    if (finished == 0) {
+    if (finished === '0') {
       isFinished = false;
-    } else if (finished == 1) {
+    } else if (finished === '1') {
       isFinished = true;
     }
 
@@ -46,7 +46,7 @@ const getBook: reqHandler = (req, h) => {
 
   const book = books.filter(book => book.id === bookId)[0];
 
-  if (!book || book === undefined) {
+  if (!book) {
     return h
       .response({
         status: 'fail',
