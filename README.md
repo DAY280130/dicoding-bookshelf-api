@@ -1,6 +1,6 @@
 # Dicoding Bookshelf API
 
-Dikerjakan untuk memenuhi tugas submission dari program [membuat aplikasi back-end untuk pemula](https://www.dicoding.com/academies/261) dari [dicoding](https://www.dicoding.com)
+Dikerjakan untuk memenuhi tugas submission program [membuat aplikasi back-end untuk pemula](https://www.dicoding.com/academies/261) dari [dicoding](https://www.dicoding.com)
 
 ## Author
 
