@@ -80,8 +80,81 @@ const postBook: reqHandler = (req, h) => {
     .code(201);
 };
 
-const putBook: reqHandler = (req, h) => 'test';
+const putBook: reqHandler = (req, h) => {
+  const { bookId } = req.params;
+  const { author, name, pageCount, publisher, readPage, reading, summary, year } = req.payload as Payload;
 
-const deleteBook: reqHandler = (req, h) => 'test';
+  if (!name || name === undefined) {
+    return h
+      .response({
+        status: 'fail',
+        message: 'Gagal memperbarui buku. Mohon isi nama buku',
+      })
+      .code(400);
+  }
+
+  if (readPage > pageCount) {
+    return h
+      .response({
+        status: 'fail',
+        message: 'Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount',
+      })
+      .code(400);
+  }
+
+  const bookIndex = books.findIndex(book => book.id === bookId);
+
+  if (bookIndex < 0) {
+    return h
+      .response({
+        status: 'fail',
+        message: 'Gagal memperbarui buku. Id tidak ditemukan',
+      })
+      .code(404);
+  }
+
+  books[bookIndex] = {
+    ...books[bookIndex],
+    name,
+    year,
+    author,
+    summary,
+    publisher,
+    pageCount,
+    readPage,
+    reading,
+  };
+
+  return h
+    .response({
+      status: 'success',
+      message: 'Buku berhasil diperbarui',
+    })
+    .code(200);
+};
+
+const deleteBook: reqHandler = (req, h) => {
+  const { bookId } = req.params;
+
+  const bookIndex = books.findIndex(book => book.id === bookId);
+
+  if (bookIndex < 0) {
+    return h
+      .response({
+        status: 'fail',
+        message: 'Buku gagal dihapus. Id tidak ditemukan',
+      })
+      .code(404);
+  }
+
+  books.splice(bookIndex, 1);
+
+  return h
+    .response({
+      status: 'success',
+      message: 'Buku berhasil dihapus',
+    })
+    .code(200);
+};
 
 export const BooksHandlers = { getBooks, getBook, postBook, putBook, deleteBook };
