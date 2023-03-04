@@ -2,36 +2,46 @@ import { nanoid } from 'nanoid';
 import { reqHandler, books, Payload } from '../model/books.js';
 
 const getBooks: reqHandler = (req, h) => {
-  const { name, reading, finished } = req.params;
+  const { name = '', reading = 2, finished = 2 } = req.query;
+  // const parsedReading = parseInt(reading);
 
   let filteredBooks = books;
 
-  if (name || name !== undefined) {
-    filteredBooks = filteredBooks.filter(book => book.name === name);
+  console.log('test', name, reading, finished);
+
+  if (name !== '') {
+    filteredBooks = filteredBooks.filter(book => book.name.toLowerCase().includes(name.toLowerCase()));
+    console.log(`name ${name.toLowerCase()} filtered`);
   }
 
-  if (reading || reading === 1 || reading === 0) {
+  if (reading == 1 || reading == 0) {
     let isReading: boolean;
 
-    if (reading === 0) {
+    if (reading == 0) {
       isReading = false;
-    } else if (reading === 1) {
+      console.log(`isReading: ${isReading}`);
+    } else if (reading == 1) {
       isReading = true;
+      console.log(`isReading: ${isReading}`);
     }
 
     filteredBooks = filteredBooks.filter(book => book.reading === isReading);
+    console.log(`reading: ${reading} filtered`);
   }
 
-  if (finished || finished === 1 || finished === 0) {
+  if (finished == 1 || finished == 0) {
     let isFinished: boolean;
 
-    if (finished === 0) {
+    if (finished == 0) {
       isFinished = false;
-    } else if (finished === 1) {
+      console.log(`isFinished: ${isFinished}`);
+    } else if (finished == 1) {
       isFinished = true;
+      console.log(`isFinished: ${isFinished}`);
     }
 
     filteredBooks = filteredBooks.filter(book => book.finished === isFinished);
+    console.log(`finished: ${finished} filtered`);
   }
 
   const newBooks = filteredBooks.map(({ id, name, publisher }) => ({ id, name, publisher }));
