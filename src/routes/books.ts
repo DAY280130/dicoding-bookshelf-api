@@ -1,5 +1,5 @@
 import { ServerRoute, ReqRefDefaults } from '@hapi/hapi';
-import { BooksHandlers } from 'src/handler/books.js';
+import { BooksHandlers } from '../handler/books.js';
 
 const path = '/Books';
 

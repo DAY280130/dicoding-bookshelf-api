@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { reqHandler, books, Payload } from 'src/model/books.js';
+import { reqHandler, books, Payload } from '../model/books.js';
 
 const getBooks: reqHandler = (res, h) => {
   return h.response({
