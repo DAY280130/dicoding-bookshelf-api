@@ -1,8 +1,40 @@
 import { nanoid } from 'nanoid';
 import { reqHandler, books, Payload } from '../model/books.js';
 
-const getBooks: reqHandler = (res, h) => {
-  const newBooks = books.map(({ id, name, publisher }) => ({ id, name, publisher }));
+const getBooks: reqHandler = (req, h) => {
+  const { name, reading, finished } = req.params;
+
+  let filteredBooks = books;
+
+  if (name || name !== undefined) {
+    filteredBooks = filteredBooks.filter(book => book.name === name);
+  }
+
+  if (reading || reading === 1 || reading === 0) {
+    let isReading: boolean;
+
+    if (reading === 0) {
+      isReading = false;
+    } else if (reading === 1) {
+      isReading = true;
+    }
+
+    filteredBooks = filteredBooks.filter(book => book.reading === isReading);
+  }
+
+  if (finished || finished === 1 || finished === 0) {
+    let isFinished: boolean;
+
+    if (finished === 0) {
+      isFinished = false;
+    } else if (finished === 1) {
+      isFinished = true;
+    }
+
+    filteredBooks = filteredBooks.filter(book => book.finished === isFinished);
+  }
+
+  const newBooks = filteredBooks.map(({ id, name, publisher }) => ({ id, name, publisher }));
   return h.response({
     status: 'success',
     data: { books: newBooks },
