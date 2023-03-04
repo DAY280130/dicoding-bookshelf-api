@@ -8,7 +8,25 @@ const getBooks: reqHandler = (res, h) => {
   });
 };
 
-const getBook: reqHandler = (req, h) => 'test';
+const getBook: reqHandler = (req, h) => {
+  const { bookId } = req.params;
+
+  const book = books.filter(book => book.id === bookId)[0];
+
+  if (!book || book === undefined) {
+    return h
+      .response({
+        status: 'fail',
+        message: 'Buku tidak ditemukan',
+      })
+      .code(404);
+  }
+
+  return h.response({
+    status: 'success',
+    data: { book },
+  });
+};
 
 const postBook: reqHandler = (req, h) => {
   const { author, name, pageCount, publisher, readPage, reading, summary, year } = req.payload as Payload;
