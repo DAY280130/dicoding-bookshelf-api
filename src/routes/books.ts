@@ -11,7 +11,7 @@ export const BooksRoutes: ServerRoute<ReqRefDefaults>[] = [
   },
   {
     method: 'GET',
-    path: `${path}/{id}`,
+    path: `${path}/{bookId}`,
     handler: BooksHandlers.getBook,
   },
   {
@@ -21,12 +21,12 @@ export const BooksRoutes: ServerRoute<ReqRefDefaults>[] = [
   },
   {
     method: 'PUT',
-    path: `${path}/{id}`,
+    path: `${path}/{bookId}`,
     handler: BooksHandlers.putBook,
   },
   {
     method: 'DELETE',
-    path: `${path}/{id}`,
+    path: `${path}/{bookId}`,
     handler: BooksHandlers.deleteBook,
   },
 ];
