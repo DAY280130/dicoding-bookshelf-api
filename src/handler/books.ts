@@ -2,9 +2,10 @@ import { nanoid } from 'nanoid';
 import { reqHandler, books, Payload } from '../model/books.js';
 
 const getBooks: reqHandler = (res, h) => {
+  const newBooks = books.map(({ id, name, publisher }) => ({ id, name, publisher }));
   return h.response({
     status: 'success',
-    data: { books },
+    data: { books: newBooks },
   });
 };
 
