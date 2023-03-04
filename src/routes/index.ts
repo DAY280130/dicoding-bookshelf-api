@@ -9,7 +9,7 @@ export const routes: ServerRoute<ReqRefDefaults>[] = [
     method: '*',
     path: `${path}{any*}`,
     handler: (req, h) => {
-      return h.response('Halaman tidak ditemukan').code(404);
+      return h.response('Rute tidak ditemukan').code(404);
     },
   },
 ];
