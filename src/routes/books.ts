@@ -1,7 +1,7 @@
 import { ServerRoute, ReqRefDefaults } from '@hapi/hapi';
 import { BooksHandlers } from '../handler/books.js';
 
-const path = '/Books';
+const path = '/books';
 
 export const BooksRoutes: ServerRoute<ReqRefDefaults>[] = [
   {
